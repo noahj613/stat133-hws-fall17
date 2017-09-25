@@ -2,7 +2,7 @@
 
 Repository for HW assignments of Stat 133 (Fall 2017)
 
-- Student name: Noah James Weingarten
+- Student name: Noah Weingarten
 - Github username: noahj613
 - Lab section: 101
 - GSI: Omid Shams Solari
