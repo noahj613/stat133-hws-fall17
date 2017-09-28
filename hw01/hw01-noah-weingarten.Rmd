@@ -1,0 +1,127 @@
+---
+title: "Homework 1"
+output: github_document
+---
+
+```{r}
+load("nba2017-salary-points.RData")
+new.salary <- salary/1000000
+new.experience <- replace(experience, experience == "R", "0")
+new.position <- factor(x = position, c("C", "PF", "SG", "PG", "SF"), c("Center", "Power Forward", "Shooting Guard", "Point Guard", "Small Forward"))
+
+table(new.position)
+```
+```{r}
+plot(points, new.salary)
+```
+
+There does seem to be a positive trend in the data. The majority of the points are clustered around low salary and low point totals.
+
+```{r}
+n <- 441
+xbar <- sum(points)/n
+ybar <- sum(new.salary)/n
+varx <- (1/(n-1))*sum((points-xbar)^2)
+vary <- (1/(n-1))*sum((new.salary-ybar)^2)
+sdx <- sqrt(varx)
+sdy <- sqrt(vary)
+covxy <- (1/(n-1))*sum((points-xbar)*(new.salary-ybar))
+corrxy <- covxy/(sdx*sdy)
+n
+xbar
+ybar
+varx
+vary
+sdx
+sdy
+covxy
+corrxy
+
+```
+
+```{r}
+b1 <- corrxy*(sdy/sdx)
+b0 <- ybar-b1*xbar
+yhat <- b0+b1*points
+
+summary(yhat)
+
+```
+
+The regression equation is yhat = `r b0` + `r b1`x
+
+The slope positive which indicates that salaries increase as points increase. Literally, I think it means that a player is predicted to earn approximately $`r round(1000000*b1, digits = 2)` per point.
+
+The intercept is the amount a player in the NBA is predicted to earn should they score 0 points.
+_____________________________________________________________________________________________
+
+**Note: this happens when I try to use inline code to answer this part of Q4. Not sure how to fix
+
+The predicted salary for a player who scores...
+
+...0 points is $`r round(1000000*b0, digits = 2)`
+_____________________________________________________________________________________________
+
+```{r}
+y0 <- (b0+b1*0)*1000000
+y100 <- (b0+b1*100)*1000000
+y500 <- (b0+b1*500)*1000000
+y1000 <- (b0+b1*1000)*1000000
+y2000 <- (b0+b1*2000)*1000000
+```
+
+The predicted salary for a player who scores...
+
+...0 points is $`r y0`.
+
+...100 points is $`r y100`.
+
+...500 points is $`r y500`.
+
+...1000 points is $`r y1000`.
+
+...2000 points is $`r y2000`.
+
+
+```{r}
+plot(points, new.salary)
+abline(b0, b1, col = "blue", lwd = 2)
+text(2200, 18, labels = "regression", col = "blue")
+text(2200, 29, labels = "lowess", col = "red")
+lines(lowess(points, new.salary), col = "red", lwd = 2)
+```
+
+```{r}
+#Residuals
+ei <- new.salary - yhat
+RSS <- sum(ei^2)
+TSS <- sum((new.salary - ybar)^2)
+
+rsq <- 1 - (RSS/TSS)
+rsq
+
+```
+
+```{r}
+#Scatterplot for experience to salary
+plot(new.experience, new.salary)
+lines(lowess(new.experience, new.salary), col = "red", lwd = 2)
+```
+
+```{r}
+#3d scatterplot
+library(scatterplot3d)
+
+scatterplot3d(points, new.experience, new.salary, color = "red", main = "3D Scatterplot")
+```
+
+```{r}
+#boxplot
+boxplot(new.salary ~ position)
+```
+
+The "experience to salary" scatterplot shows a positive relationship between the two indicating that a more experienced player will earn a higher salary. 
+
+The 3d scatterplot is difficult for me to interpret but it seems to support what the previous scatterplots have told us. Both experience and points scored are factors in determining a player's salary.
+
+Based on the box plots, I would argue that position doesn't have much of an effect on salary considering the median value for each position is virtually equal. 
