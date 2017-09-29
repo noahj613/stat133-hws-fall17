@@ -1,0 +1,4 @@
+- Student name: Noah Weingarten
+- Github username: noahj613
+- Lab section: 101
+- GSI: Omid Shams Solari
