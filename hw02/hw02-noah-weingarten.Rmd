@@ -1,30 +1,26 @@
 ---
-title: "hw02-noah-weingarten"
+title: "HW02 - Basics of Data Frames"
 output: github_document
 ---
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+```{r}
+library(readr)
 ```
 
-## GitHub Documents
 
-This is an R Markdown format used for publishing markdown documents to GitHub. When you click the **Knit** button all R code chunks are run and a markdown file (.md) suitable for publishing to GitHub is generated.
+**2) Importing the data 2 ways**
 
-## Including Code
+Base
+```{r}
+dat1 <- read.csv(file = "C:/Users/13noa/stat133/stat133-hws-fall17/hw02/data/nba2017-player-statistics.csv")
 
-You can include R code in the document as follows:
+str(dat1)
 
-```{r cars}
-summary(cars)
 ```
 
-## Including Plots
-
-You can also embed plots, for example:
-
-```{r pressure, echo=FALSE}
-plot(pressure)
+readr
+```{r}
+dat2 <- read_csv("C:/Users/13noa/stat133/stat133-hws-fall17/hw02/data/nba2017-player-statistics.csv")
+str(dat2)
 ```
 
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
