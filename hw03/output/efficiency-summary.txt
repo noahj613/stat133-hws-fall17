@@ -1,3 +1,5 @@
+
+> summary(stats[ , "efficiency"])
    efficiency    
  Min.   :-0.600  
  1st Qu.: 5.452  
@@ -5,3 +7,5 @@
  Mean   :10.137  
  3rd Qu.:13.247  
  Max.   :33.840  
+
+> sink()
