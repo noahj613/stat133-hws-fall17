@@ -1,0 +1,6 @@
+---
+title: "Post01 Sources/References"
+output: github_document
+---
+
+1) Quote from: <https://www.simba.com/blog/data-wrangling-important-part-data-management/>
